@@ -3,7 +3,7 @@ import {
   getHashedPassword,
   verifyPassword,
   generateToken,
-} from "../services/User.js";
+} from "../services/user.js";
 
 export const signUpUser = async (req, res) => {
   const { userDetails = {} } = req.body;
