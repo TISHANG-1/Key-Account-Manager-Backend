@@ -57,7 +57,6 @@ export const updatePerformance = async (req, res) => {
        RETURNING *;`,
       [order_count, order_value, last_order_date, restaurant_id]
     );
-    console.log(result.rows[0]);
     if (result.rows.length === 0) {
       return res
         .status(404)
@@ -131,6 +130,7 @@ export const getOrderingPatterns = async (req, res) => {
          SUM(order_value) AS total_value
        FROM performance
        WHERE restaurant_id = $1
+       AND order_value <> 0
        GROUP BY month
        ORDER BY month;`,
       [restaurant_id]
@@ -175,7 +175,6 @@ export const getUnderperformingAccounts = async (req, res) => {
 export const getUnderperformingAccountsUnderKAM = async (req, res) => {
   try {
     const { id: userId } = req.user;
-    console.log(userId);
     const result = await pool.query(
       `SELECT rst.name as restaurant_name , prf.order_value, prf.order_count, prf.last_order_date, rst.assigned_to
        FROM leads rst

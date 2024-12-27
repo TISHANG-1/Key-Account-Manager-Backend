@@ -102,14 +102,12 @@ export const updateCallSchedule = async (req, res) => {
 export const markCallAttended = async (req, res) => {
   const { id } = req.params;
   const { callDetails = {} } = req.body;
-  console.log(callDetails);
   const {
     // id = null,
     call_frequency = null,
     next_call_date = null,
   } = callDetails;
   const next_call_date_utc = getNextDateUTC(next_call_date, call_frequency);
-  console.log(next_call_date_utc);
   try {
     const result = await pool.query(
       `UPDATE call_schedule

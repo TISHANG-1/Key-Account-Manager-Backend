@@ -16,7 +16,6 @@ export const createContact = async (req, res) => {
   }
 
   try {
-    console.log("here");
     const result = await pool.query(
       `INSERT INTO contacts (restaurant_id, name, role, email, contact_number)
        VALUES ($1, $2, $3, $4, $5) RETURNING *;`,

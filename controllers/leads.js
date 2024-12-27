@@ -31,12 +31,24 @@ export const createLead = async (req, res) => {
   }
 };
 
-export const getAllLeads = async (req, res) => {
+export const getAllLeadsForKAM = async (req, res) => {
   const { id: userId } = req.user;
   try {
     const result = await pool.query(
       "SELECT * FROM leads where assigned_to = $1 ORDER BY created_at DESC;",
       [userId]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching leads:", error);
+    res.status(500).json({ error: "Internal Server Error." + error });
+  }
+};
+
+export const getAllLeads = async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM leads ORDER BY created_at DESC;"
     );
     res.status(200).json(result.rows);
   } catch (error) {
@@ -71,7 +83,6 @@ export const updateLead = async (req, res) => {
       prev_status !== lead_status &&
       (index === -1 || (index !== -1 && lead_status !== "Lost"))
     ) {
-      console.log(lead_status, index);
       if (lead_status !== statusEnum[(index + 1) % statusEnum.length]) {
         res
           .status(404)
