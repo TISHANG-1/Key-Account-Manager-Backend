@@ -37,7 +37,7 @@ The Lead Management System is designed to help Udaan’s Key Account Managers (K
    ```env
    PORT=8080
    JWT_SECRET=your-secret-key
-   JWT_EXPIRES_IN=10d
+   JWT_EXPIRES_IN=30d
    POSTGRESQL_URL=postgres://username:password@localhost:5432/lead_management
    ```
 
