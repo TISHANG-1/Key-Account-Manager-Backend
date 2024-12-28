@@ -77,7 +77,7 @@ export const getTopPerformingAccounts = async (req, res) => {
        WHERE order_value > $1 AND order_count > $2
        ORDER BY order_value DESC, order_count DESC
        LIMIT 10;`,
-      [10000, 5]
+      [10000, 2]
     );
 
     if (result.rows.length === 0) {
