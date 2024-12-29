@@ -30,7 +30,7 @@ export const signUpUser = async (req, res) => {
     const token = generateToken(
       newUser.rows[0].id,
       newUser.rows[0].email,
-      user.rows[0]?.role
+      newUser.rows[0]?.role
     );
 
     res.status(201).json({
