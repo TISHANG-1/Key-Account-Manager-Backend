@@ -23,8 +23,8 @@ export const signUpUser = async (req, res) => {
     const hashedPassword = await getHashedPassword(password);
 
     const newUser = await pool.query(
-      "INSERT INTO users (name , email, password, contact_number) VALUES ($1, $2 , $3, $4) RETURNING *",
-      [name, email, hashedPassword, contact_number]
+      "INSERT INTO users (name , email, password) VALUES ($1, $2 , $3) RETURNING *",
+      [name || "", email, hashedPassword]
     );
 
     const token = generateToken(
